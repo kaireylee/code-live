@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Code Live</title>
+    
+    
+    <link rel="stylesheet" href="main.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    
+</head>
+   
+<body>
+    
+    <div id="wrapper">
+        <div id = "header">
+            <div id="logo">Code Live</div>
+            
+            <div id="buttonDiv">
+                <button id="compile">Compile</button>
+            </div>
+       
+        
+            <ul id="toggles">
+                <li class="toggle selected">HTML</li>
+                <li class="toggle">CSS</li>
+                <li class="toggle">JS</li>
+                <li class="toggle selected" style="border:none">Result</li>
+            </ul>
+        </div>
+        
+        <div class="clear"></div>
+        
+        <div class="codeContainer" id="HTMLContainer">
+            <img id="htmlLabel" src="images/html.png"/>
+            <textarea id="htmlCode"><div></div></textarea>
+        
+        </div>
+        
+        <div class="codeContainer" id="CSSContainer">
+            <img id="cssLabel" src="images/css3.png"/>
+            <textarea id="cssCode">div{width:200px; height:200px; border-radius:200px; background-color:blue;</textarea>
+        
+        </div>
+        
+        <div class="codeContainer" id="JSContainer">
+            <img id="jsLabel" src="images/javascript.png"/>
+            <textarea id="jsCode">blocked for now due to security reasons</textarea>
+        
+        </div>
+        
+        <div class="codeContainer" id="ResultContainer">
+            <div id="resultLabel">Result</div>
+            <iframe id="resultFrame"></iframe>
+        </div>
+        
+    
+        <div id="footer"></div>
+    </div>
+    
+    <script>
+        var windowHeight = $(window).height();
+        var headerHeight = $("#header").height();
+
+        var codeContainerHeight = windowHeight-headerHeight-40;
+
+        $(".codeContainer").height(codeContainerHeight+"px");
+
+        $(".toggle").click(function(){
+            $(this).toggleClass("selected");
+
+            var activeDiv=$(this).html();
+
+            $("#" +activeDiv+"Container").toggle();
+
+            var showingDivs = $(".codeContainer").filter(function(){
+                return($(this).css("display")!="none");
+            }).length;
+
+            var width=100/showingDivs;
+
+            $(".codeContainer").css("width", width+"%");
+        });
+
+        $("#compile").click(function(){
+            $("iframe").contents().find("html").html('<style>'+ $("#cssCode").val()+ '</style>'+ $("#htmlCode").val());
+            //document.getElementById('resultFrame').contentWindow.eval($('#jsCode').val());
+        });
+
+        $("textarea").keydown(function(e) {
+            if(e.keyCode === 9) { // tab was pressed
+                // get caret position/selection
+                var start = this.selectionStart;
+                    end = this.selectionEnd;
+
+                var $this = $(this);
+
+                // set textarea value to: text before caret + tab + text after caret
+                $this.val($this.val().substring(0, start)
+                            + "\t"
+                            + $this.val().substring(end));
+
+                // put caret at right position again
+                this.selectionStart = this.selectionEnd = start + 1;
+
+                // prevent the focus lose
+                return false;
+            }
+        });
+        
+        /*$("textarea").keydown(function(e){
+            if(e.keycode === 190)
+                
+        }) this will be to complete < > containers
+        
+        $("textarea").keydown(function(e){
+            if(e.keycode === 16) shift
+                if(e.keycode === 219)
+                    close curly braces
+                    
+        })this will be to complete brackets
+        
+        $("textarea").keydown(function(e){
+            if(e.keycode === 16)
+                if(e.keycode == 57)
+                    close parenthesis
+                
+        })this will be to complete parenthesis*/
+        
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+

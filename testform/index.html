@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+    
+     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script><!-- -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+    <style>
+        #wrapper {
+            width: 600px;
+            margin: auto;
+            font-family: helvetica;
+            font-size: 1.2em;
+        }
+        
+        input {
+            width: 300px;
+            height: 30px;
+            font-size: 1.2em;
+            border: 1px solid grey;
+            padding: 5px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        label {
+            width: 200px;
+            float: left;
+            padding-top: 7px;
+            padding left: 20px;
+        }
+        
+        #submitButton {
+            height: 50px;
+            margin-left: 200px;
+            width: 100px;
+        }
+        
+        #error {
+            margin: 20px;
+            color: red;
+        }
+    
+    </style>
+<body>
+    <div id="wrapper">
+        <div id="error"></div>
+        
+        <form id="validationForm">
+        
+            <label for="email">Email:</label>
+            <input name="email" id="email"/>
+
+            <label for="phone">Telephone:</label>
+            <input name="phone" id="phone"/>
+
+            <label for="pass">Password:</label>
+            <input name="pass" id="pass1" type="password"/>
+
+            <label for="pass">Confirm Password:</label>
+            <input name="pass" id="pass2" type="password"/>
+
+            <input id="submitButton" type="submit" value="Submit"/>
+
+        </form>
+        
+    </div>
+    
+    
+    
+    
+    
+    <script>
+        
+        function isValidEmailAddress(emailAddress) {
+            var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+            return pattern.test(emailAddress);
+        };
+        
+        $("#validationForm").submit(function(event){
+            
+            var errorMessage = "";
+    
+            event.preventDefault();
+            
+            if (!isValidEmailAddress($("#email").val()))
+                errorMessage = "<br/>Please enter a valid email address";
+            
+            if(!$.isNumeric($("#phone").val()))
+                errorMessage +="<br/>Please enter a valid phone number";
+            
+            if ($("#pass1").val() != $("#pass2").val())
+                errorMessage += "<br/>Passwords do not match!";
+            
+            if(errorMessage == "")
+                errorMessage = "Form filled out correctly!";
+            
+            $("#error").html(errorMessage);
+                
+        });
+        
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
